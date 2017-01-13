@@ -1,0 +1,28 @@
+{
+  "name": "skeleton",
+  "version": "1.0.0",
+  "description": "Skeleton for presentation based on reveal.js",
+  "author": "Sebastián González Montesinos",
+  "license": "MIT",
+  "scripts": {
+    "start": "webpack-dev-server"
+  },
+  "dependencies": {
+    "reveal.js": "^3.4.0"
+  },
+  "devDependencies": {
+    "babel": "^6.5.2",
+    "babel-core": "^6.21.0",
+    "babel-loader": "^6.2.10",
+    "babel-preset-env": "^1.1.8",
+    "css-loader": "^0.26.1",
+    "eslint": "^3.13.1",
+    "eslint-loader": "^1.6.1",
+    "file-loader": "^0.9.0",
+    "html-webpack-plugin": "^2.26.0",
+    "postcss-loader": "^1.2.2",
+    "style-loader": "^0.13.1",
+    "webpack": "^2.2.0-rc.4",
+    "webpack-dev-server": "^2.2.0-rc.0"
+  }
+}
