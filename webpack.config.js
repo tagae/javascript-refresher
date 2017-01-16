@@ -24,17 +24,8 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /node_modules\/reveal.js\/(lib\/.*\.js$|js)/,
+        test: /node_modules\/reveal.js\/.*\.js$/,
         use: 'script-loader'
-      },
-      {
-        test: /node_modules\/reveal.js\/plugin/,
-        use: {
-          loader: 'file-loader',
-          options: {
-            name: '[name].[hash].[ext]'
-          }
-        }
       },
       {
         test: /\.js$/,
