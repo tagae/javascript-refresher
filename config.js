@@ -1,3 +1,10 @@
+// Main reveal.js setup
+require('./node_modules/reveal.js/css/reveal.css');
+require('./node_modules/reveal.js/css/theme/black.css');
+require('./node_modules/reveal.js/lib/css/zenburn.css');
+require('./node_modules/reveal.js/lib/js/head.min.js');
+require('./node_modules/reveal.js/js/reveal.js');
+
 // https://github.com/hakimel/reveal.js#configuration
 
 /*global Reveal*/

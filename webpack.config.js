@@ -1,7 +1,7 @@
 // https://webpack.js.org
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const { resolve } = require('path');
+const { resolve, join } = require('path');
 
 module.exports = {
 
@@ -9,6 +9,11 @@ module.exports = {
     'webpack-dev-server/client?http://localhost:8080',
     './config.js'
   ],
+
+  output: {
+    path: join(process.cwd(), 'dist') ,
+    filename: '[name].[hash].js'
+  },
 
   devtool: 'inline-source-map',
 
@@ -19,8 +24,17 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /node_modules\/reveal.js/,
-        use: 'file-loader'
+        test: /node_modules\/reveal.js\/(lib\/.*\.js$|js)/,
+        use: 'script-loader'
+      },
+      {
+        test: /node_modules\/reveal.js\/plugin/,
+        use: {
+          loader: 'file-loader',
+          options: {
+            name: '[name].[hash].[ext]'
+          }
+        }
       },
       {
         test: /\.js$/,
@@ -37,10 +51,19 @@ module.exports = {
         test: /\.css$/,
         use: [
           'style-loader',
-          'css-loader?modules',
+          'css-loader',
           'postcss-loader',
         ],
       },
+      {
+        test: /\.(png|jpe?g|gif|svg|woff2?|ttf|eot|ico|ttf)(\?.*)?$/,
+        use: {
+          loader: 'file-loader',
+          options: {
+            name: '[name].[hash].[ext]'
+          }
+        }
+      }
     ],
   },
 
