@@ -21,6 +21,5 @@ hljs.initHighlightingOnLoad();
 // https://github.com/hakimel/reveal.js#configuration
 Reveal.initialize({
   slideNumber: true,
-  history: true,
-  transition: 'slide' // none|fade|slide|convex|concave|zoom
+  history: true
 });
