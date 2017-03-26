@@ -12,11 +12,11 @@ module.exports = {
   ],
 
   output: {
-    path: join(process.cwd(), 'dist') ,
+    path: join(process.cwd(), 'dist'),
     filename: '[name].[hash].js'
   },
 
-  devtool: 'source-map',
+  devtool: 'inline-source-map',
 
   performance: {
     hints: false // muffle warning about bundle size
@@ -48,7 +48,7 @@ module.exports = {
         ],
       },
       {
-        test: /\.(png|jpe?g|gif|svg|woff2?|ttf|eot|ico|ttf)(\?.*)?$/,
+        test: /\.(png|jpg|gif|svg|woff2?|ttf|eot|ico|ttf)$/,
         use: {
           loader: 'file-loader',
           options: {
