@@ -10,17 +10,16 @@ require('./node_modules/reveal.js/js/reveal.js');
 // styling
 require('./node_modules/reveal.js/css/theme/white.css');
 require('./node_modules/reveal.js/lib/css/zenburn.css');
-require('./index.css');
+require('./index.sass');
 
 // plugins
 require('./node_modules/reveal.js/plugin/zoom-js/zoom.js');
 require('./node_modules/reveal.js/plugin/notes/notes.js');
 require('./node_modules/reveal.js/plugin/highlight/highlight.js');
-
-// printing
-require('./print.js')
-
 hljs.initHighlightingOnLoad();
+
+// local config
+require('./print.js')
 
 // https://github.com/hakimel/reveal.js#configuration
 Reveal.initialize({

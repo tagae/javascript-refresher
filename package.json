@@ -11,9 +11,8 @@
   },
   "dependencies": {
     "node-static": "^0.7.9",
-    "reveal.js": "^3.4.1"
-  },
-  "devDependencies": {
+    "reveal.js": "^3.4.1",
+    "sass-loader": "^6.0.3",
     "babel-cli": "~6.24",
     "babel-core": "~6.24",
     "babel-loader": "~6.4",
