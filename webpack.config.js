@@ -53,6 +53,10 @@ module.exports = {
         ],
       },
       {
+        test: /\.html$/,
+        use: 'html-loader'
+      },
+      {
         test: /\.(png|jpg|gif|svg|woff2?|ttf|eot|ico|ttf)$/,
         use: {
           loader: 'file-loader',
@@ -65,11 +69,8 @@ module.exports = {
   },
 
   plugins: [
-    new HtmlWebpackPlugin({
-      template: 'index.html'
-    }),
-    new UglifyJsPlugin({
-    })
+    new HtmlWebpackPlugin({ template: 'index.html' }),
+    new UglifyJsPlugin({ })
   ]
 
 };
