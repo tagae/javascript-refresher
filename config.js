@@ -41,10 +41,11 @@ document.getElementsByTagName('head')[0].appendChild(link);
 
 // https://github.com/hakimel/reveal.js#configuration
 Reveal.initialize({
+  height: 1024,
   controls: true,
   progress: true,
   history: true,
   center: true,
   slideNumber: true,
-  transition: 'none'
+  transition: 'slide'
 });
