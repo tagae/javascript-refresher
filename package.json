@@ -1,7 +1,7 @@
 {
-  "name": "skeleton",
+  "name": "javascript-intro",
   "version": "1.0.0",
-  "description": "Skeleton for presentation based on reveal.js",
+  "description": "Modern introduction to JavaScript",
   "author": "Sebastián González Montesinos",
   "license": "MIT",
   "scripts": {

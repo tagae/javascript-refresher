@@ -1,25 +1,1236 @@
 <!doctype html>
 <html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>The Yin and Yang of JavaScript</title>
+    <meta name="description" content="Introduction to the JavaScript language">
+  </head>
+  <body class="reveal">
+    <div class="slides">
 
-<head>
-  <meta charset="utf-8">
-  <title>Skeleton</title>
-  <meta name="description" content="Skeleton slides for a reveal.js presentation">
-  <meta name "author" content="Sebastián González">
-  <meta name="viewport" content="width=device-width, minimal-ui">
-</head>
+      <section class="deck-slide">
+        <h1>JavaScript</h1>
+        <h2>The Yin and Yang of Functions and Objects</h2>
+        <img src="media/Yin-Yang.svg" width="30%" class="zen">
+        <!-- <h2>陰陽</h2> -->
+        <p>
+          By Sebastián González<br>
+          EPL / LSINF1212<br>
+          13 February 2017
+        </p>
+      </section>
 
-<body class="reveal">
-  <div class="slides">
-    <section class="deck-slide">
-      <h1>Skeleton</h1>
-      <h2>Subtitle</h2>
-      <p>
-        By Author<br> Venue
-        <br> Date
-      </p>
-    </section>
-  </div>
-</body>
+      <section>
+        <section>
+          <h2>JavaScript</h2>
+          <h4><a href="http://javascript.crockford.com/javascript.html">
+              The World's Most Misunderstood Programming Language
+          </a></h4>
+          <p>
+            JavaScript is often derided as being a toy,<br/> but beneath its
+            layer of deceptive simplicity,<br/> powerful language features
+            await.
+          </p>
+        </section>
+        <section>
+          <p>JavaScript was created in 1995 by Brendan Eich</p>
+          <img src="media/Netscape-2.0.gif">
+          <p>Shipped early 1996 as part of Netscape Navigator 2.0</p>
+        </section>
+        <section>
+          <div class="row">
+            <img src="media/ECMA-262.jpg" width="50%" style="margin-right: 1em">
+            <ul>
+              <li>1st ed. 1997</li>
+              <li>2nd ed. 1998</li>
+              <li>3rd ed. 1999</li>
+              <li>4th not published</li>
+              <li>5th ed. 2009</li>
+              <li>5.1th ed. 2011</li>
+              <li>6th ed. 2015</li>
+              <li>7th ed. 2016</li>
+            </ul>
+          </div>
 
+        </section>
+        <section>
+          <p>Unlike most programming languages, JavaScript has no concept of
+            input or output. JavaScript is designed to run as a scripting
+            language in a host environment, and it is up to the host
+            environment to provide mechanisms for communicating with the
+            outside world.</p>
+        </section>
+      </section>
+
+      <section>
+        <p>Let's dive in!</p>
+      </section>
+
+      <section>
+        <h1>Literals</h1>
+      </section>
+
+      <section>
+        <h2>Undefined</h2>
+        <p>Uninitialised</p>
+        <p>Not known</p>
+        <pre><code>undefined</code></pre>
+      </section>
+
+      <section>
+        <h2>Null</h2>
+        <p>No content</p>
+        <p>Deliberate non-value</p>
+        <pre><code>null</code></pre>
+      </section>
+
+      <section>
+        <section>
+          <h2>Booleans</h2>
+          <pre><code>
+              true
+
+              false
+          </code></pre>
+        </section>
+        <section>
+          <h2>Boolean Operators</h2>
+          <pre><code>
+              ! a     // negation
+
+              a && b  // conjunction
+
+              a || b  // disjunction
+          </code></pre>
+        </section>
+        <section>
+          <h2>Falsy Values</h2>
+          <div class="bi-column-box bi-column-box-left">
+            <pre><code data-trim>
+                false
+                null
+                undefined
+                '' // empty string
+                0
+                NaN
+            </code></pre>
+          </div>
+          <div class="bi-column-box bi-column-box-right">
+            <pre><code data-trim>
+                ! false     === true
+                ! null      === true
+                ! undefined === true
+                ! ''        === true
+                ! 0         === true
+                ! NaN       === true
+            </code></pre>
+          </div>
+        </section>
+        <section>
+          <h2>Truthy Values</h2>
+          <p>Any value that is not falsy</p>
+          <div class="bi-column-box bi-column-box-left">
+            <pre><code data-trim>
+                true
+                []
+                {}
+                42
+                'foo'
+                Infinity
+                …
+            </code></pre>
+          </div>
+          <div class="bi-column-box bi-column-box-right">
+            <pre><code data-trim>
+                ! true     === false
+                ! []       === false
+                ! {}       === false
+                ! 42       === false
+                ! 'foo'    === false
+                ! Infinity === false
+                …
+            </code></pre>
+          </div>
+        </section>
+        <section>
+          <h6>Idiom</h6>
+          <h2>Conversion to boolean</h2>
+          <pre><code>
+              !! null === false
+
+              !! 'foo' === true
+          </code></pre>
+        </section>
+        <section>
+          <h6>Idiom</h6>
+          <h2>Pick first truthy</h2>
+          <pre><code data-trim>
+              let username = person.name || person.nickname || 'Uncle Bob'
+          </code></pre>
+        </section>
+        <section>
+          <h6>Idiom</h6>
+          <h2>Check before use</h2>
+          <pre><code>
+              let owner = account && account.owner()
+          </code></pre>
+        </section>
+      </section>
+
+      <section>
+        <section>
+          <h2>Numbers</h2>
+          <p>The one and only numeric data type</p>
+          <p><small>spec: “double-precision 64-bit format IEEE 754 values”</small></p>
+          <p>No distinction between ints, fixnums, etc.</p>
+          <pre><code>
+            1
+
+            3.5
+
+            3 === 3.0    // true
+
+            8 / 3        // 2.666666… (no int division!)
+
+            5 % 2        // 1
+
+            9e2          // 900
+
+            0b111110111  // 503 (binary notation)
+
+            0o767        // 503 (octal notation)
+          </code></pre>
+        </section>
+        <section>
+          <h2>Special (Non)Numbers</h2>
+          <pre><code>
+              1 / 0 === Infinity
+
+              -1 / 0 === -Infinity
+
+              isFinite(Infinity) === false
+
+              Math.sqrt(-1) // NaN
+
+              NaN === NaN // false
+
+              isNaN(NaN) // true
+
+              NaN + 5 // NaN
+          </code></pre>
+        </section>
+        <section>
+          <h6>Idiom</h6>
+          <h2>Conversion to number</h2>
+          <pre><code>
+              +'23' === 23
+
+              +'0x10' === 16
+          </code></pre>
+        </section>
+      </section>
+
+      <section>
+        <section>
+          <h2>Strings</h2>
+          <pre><code data-trim>
+              'string in single quotes'
+
+              "double quotes ain't bad for strings containing apostrophes"
+          </code></pre>
+        </section>
+        <section>
+          <h2>String interpolation</h2>
+          <pre><code data-trim>
+              let aName = 'Bob';
+
+              `template string in which $&#123;aName&#125; can be interpolated`
+
+              `multi-line
+                 templates
+                   can be handy`
+          </code></pre>
+        </section>
+      </section>
+
+            <section>
+        <section>
+          <h2>Arrays</h2>
+          <pre><code>
+            [1, 2, 3]
+
+            ['mixed', 'types', 1, true]
+
+            ['outer', 'array', ['nested', 'array']]
+          </code></pre>
+        </section>
+        <section>
+          <h2>Array Operations</h2>
+          <pre><code>
+              ['a', 'b', 'c'][1] === 'b'
+
+              ['a', 'b', 'c'].length === 3
+          </code></pre>
+        </section>
+        <section>
+          <h2>Array Spread Operator</h2>
+          <pre><code>
+              // an array can be spread into another
+              let b = [3, 4]
+              let a = [1, 2, ...b]
+              a === [1, 2, 3, 4]
+
+              // multiple spreads can occur
+              let c = [1, 2]
+              let d = [3, 4]
+              let e = [...c, ...d]
+              e === [1, 2, 3, 4]
+
+              // any iterable can be spread
+              let str = 'foo'
+              let chars = [...str] // ['f', 'o', 'o']
+          </code></pre>
+        </section>
+        <section>
+          <h2>Arrays as objects</h2>
+          <p>Array indices are used as property names</p>
+          <pre><code class="typescript">
+              let k = []
+              k.length === 0
+
+              k['0'] = 1      // create entry
+              k.length === 1
+              k[0] === 1
+
+              k['8'] = 1      // create entry
+              k.length === 9
+              k[1] === undefined
+              k[2] === undefined
+              …
+              k[7] === undefined
+              k[8] === 1
+
+              delete k[8]
+              k.length === 9
+          </code></pre>
+        </section>
+      </section>
+
+      <section>
+        <h2>Regular Expressions</h2>
+        <pre><code class="typescript">
+            /simple pattern/
+
+            /^complex pattern\s+(\d+)/
+
+            /iGnoRe cASE oPtiOn/i
+
+            …
+        </code></pre>
+      </section>
+
+      <section>
+        <section>
+          <img src="media/Queen-crown.png" width="30%" class="zen">
+          <h2>Functions</h2>
+          <p><small>
+              a.k.a. anonymous functions<br/>
+              a.k.a. arrow functions
+          </small></p>
+          <pre><code>
+            x => x + 1
+
+            (x) => x + 1
+
+            (x) => { return x + 1 }
+          </code></pre>
+          <p>all of the above are equivalent</p>
+        </section>
+        <section>
+          <h2>Named Functions</h2>
+          <pre><code>
+              function increment(x) {
+                 return x + 1;
+              }
+
+              function gcd(x, y) {
+                 if (x > y) return gcd(y, x);
+                 if (x === 0) return y;
+                 return gcd(y % x, x)
+              }
+          </code></pre>
+          <div class="fragment">
+          <p>same as</p>
+          <pre><code>
+              let increment = x => x + 1
+
+              let gcd = (x, y) => {
+                 if (x > y) return gcd(y, x);
+                 if (x === 0) return y;
+                 return gcd(y % x, x)
+              };
+          </code></pre>
+          </div>
+        </section>
+        <section>
+          <h2>Functions are values</h2>
+          <p><small>a.k.a. Higher Order Programming</small></p>
+          <p>Just like any other value, functions can be</p>
+          <ul>
+            <li>assigned to variables,</li>
+            <li>passed as arguments,</li>
+            <li>returned</li>
+          </ul>
+          <pre><code>
+              let increment = x => x + 1;
+              [1, 2, 3].map(increment); // [2, 3, 4]
+          </code></pre>
+          <pre><code>
+              function compose(f, g) {
+                 return x => f(g(x))
+              }
+
+              compose(increment, x => x * 2)(5) // ?
+          </code></pre>
+        </section>
+        <section>
+          <h2>Function Application</h2>
+          <pre><code>
+              (x => x + 1)(1) // 2
+
+              let increment = x => x + 1;
+
+              increment(1) // 2
+          </code></pre>
+        </section>
+        <section>
+          <h2>Closures</h2>
+          <p><small>a.k.a. lexical closures</small></p>
+          <pre><code>
+              function startAt(x) {
+                 function incrementBy(y) {
+                    return x + y;
+                 }
+                 return incrementBy;
+              }
+
+              let plus2 = startAt(2);
+
+              plus2(5); // 7
+          </code></pre>
+          <pre><code>
+           function derivative(f, dx) {
+              return x => (f(x + dx) - f(x)) / dx;
+           }
+          </code></pre>
+        </section>
+        <section>
+          <h2>Default Parameter Values</h2>
+          <pre><code>
+              function f (x, y = 7, z = 42) {
+                 return x + y + z
+              }
+
+              f(1) === 50
+          </code></pre>
+        </section>
+        <section>
+          <h2>Rest Parameter</h2>
+          <pre><code>
+              function f(head, ...tail) {
+                 return tail;
+              }
+
+              f(1, 2, 3, 4) === [2, 3, 4]
+          </code></pre>
+        </section>
+        <section>
+          <h2>Spread Operator</h2>
+          <pre><code>
+              function f(x, y, z) {
+                 return x + y + z;
+              }
+
+              f(...[1, 2, 3]) === f(1, 2, 3)
+
+              f(...[1, 2, 3]) === 6
+
+              let a = [1, 2, 3]
+
+              f(...a) === 6
+          </code></pre>
+        </section>
+        <section>
+          <h6>Idiom</h6>
+          <h2>Keyword arguments</h2>
+          <pre><code>
+              users.add({
+                 id: 1000,
+                 name: 'nick',
+                 groups: ['staff', 'admin']
+              });
+          </code></pre>
+        </section>
+      </section>
+
+      <section>
+        <section>
+          <img src="media/King-crown.png" width="30%" class="zen">
+          <h2>Objects</h2>
+          <pre><code>
+            {
+               name: 'Bob Pop',
+               age: 35,
+               address: 'Tha Street 101, 1050 Elsene'
+            }
+          </code></pre>
+        </section>
+        <section>
+          <h2>Property values</h2>
+          <p>Properties can have any value</p>
+          <pre><code data-trim>
+              {
+                 name: 'Bob Pop',                // string
+                 age: 35,                        // number
+                 address: {                      // object
+                    street: 'Tha Street',
+                    number: 101,
+                    postCode: 1050,
+                    city: 'Elsene'
+                 },
+                 hobbies: ['jogging', 'chess'],  // array
+                 toString: function () {         // function
+                    return `&dollar;{this.name} from &dollar;{this.address.city}`
+                 }
+              };
+          </code></pre>
+        </section>
+        <section>
+          <h2>Property Access</h2>
+          <pre><code data-trim>
+              let person = {
+                 name: 'Bob Pop',
+                 age: 35,
+                 country: 'Jamaica',
+                 toString: function() { return 'B.P.' }
+              };
+
+              person.name === 'Bob Pop' // literal
+
+              person['age'] === 35 // computed
+
+              person[localise('name', user.language)] // computed
+
+              person.toString() === 'B.P.' // literal + function call
+
+              person['toString']() === 'B.P.' // computed + function call
+          </code></pre>
+        </section>
+        <section>
+          <h2>Undefined properties</h2>
+          <pre><code data-trim>
+              person.foo === undefined // fail-soft (no exception)
+
+              person.foo.bar // exception
+          </code></pre>
+        </section>
+        <section>
+          <h2>String Property Names</h2>
+          <pre><code>
+              {
+                 "credit card number": 1029474622828,
+                 "account number": 2323112,
+                 "fidelity program": "gold",
+                 "active account": true
+              }
+          </code></pre>
+          <p>JavaScript Object Notation (JSON)</p>
+        </section>
+        <section>
+          <h2>Computed property names</h2>
+          <pre><code data-trim>
+              {
+                 [localise('name', user.language)]: user.name,
+                 [localise('age', user.language)]: user.age,
+                 [localise('city', user.language)]: user.city
+              }
+          </code></pre>
+          <p>… could yield …</p>
+          <pre><code data-trim>
+              {
+                 'Name': 'Helmut',
+                 'Alter': 31,
+                 'Stadt': 'Dusseldorf'
+              }
+          </code></pre>
+        </section>
+        <section>
+          <h2>Property creation</h2>
+          <pre><code data-trim>
+              let person = {}                         // empty object
+
+              person.name === undefined
+
+              person.name = 'Jhon'                    // create property
+
+              person.name === 'Jhon'                  // now exists
+
+              person['city'.toUpperCase()] = 'Oslo'   // create property
+
+              person.CITY === 'Oslo'                  // now exists
+          </code></pre>
+        </section>
+        <section>
+          <h2>Object creation</h2>
+          <p>maker functions</p>
+          <pre><code>
+            function makePoint(i, j) {
+              return {
+                x: i,
+                y: j,
+                toString: function() {
+                  return `(&dollar;{this.x}, &dollar;{this.y})`
+                }
+              }
+            }
+
+            let point = makePoint(2, 3);
+            point.x === 2
+            point.toString() === '(2, 3)'
+          </code></pre>
+        </section>
+        <section>
+          <h2>Object inheritance</h2>
+          <pre><code data-trim>
+              let o = { a: 1 }
+              // o —→ Object.prototype —→ null
+
+              o.toString === Object.prototype.toString
+
+              let a = ['some', 'array'];
+              // a —→ Array.prototype —→ Object.prototype —→ null
+
+              a.map === Array.prototype.map
+
+              function f() { return 2 }
+              // f —→ Function.prototype —→ Object.prototype —→ null
+
+              f.apply === Function.prototype.apply
+          </code></pre>
+        </section>
+        <section>
+          <h2>Object inheritance</h2>
+          <pre><code data-trim>
+              let animal = {
+                 kingdom: 'Animalia'
+              };
+
+              let insect = {
+                 __proto__: animal,    // inheritance: insect –—→ animal
+                 legs: 6
+              };
+
+              let bee = {
+                 __proto__: insect,    // inheritance: bee –—→ insect
+                 sound: 'buzz'
+              };
+
+              bee.legs === 6              // inherited from insect
+              bee.kingdom === 'Animalia'  // inherited from animal
+              bee.sound === 'buzz'        // own property
+
+              insect.sound === undefined
+              animal.legs === undefined
+          </code></pre>
+        </section>
+        <section>
+          <h2>Object inheritance</h2>
+          <pre><code data-trim>
+              let point = { x: 1, y: 2 }
+
+              let a = Object.create(point);
+              // a –—→ point –—→ Object.prototype –—→ null
+
+              a.x === 1 // inherited
+
+              let b = Object.create(a);
+              // b –—→ a –—→ point –—→ Object.prototype –—→ null
+          </code></pre>
+          <p>Preferred over manipulating&nbsp; <code>__proto__</code> &nbsp;directly</p>
+        </section>
+      </section>
+
+      <section>
+        <section>
+          <h2>Classes</h2>
+          <pre><code data-trim>
+              class Person {
+
+                 constructor(name) {
+                    this.name = name;
+                 }
+
+                 describe() {
+                    return 'Person called ' + this.name;
+                 }
+
+              }
+
+              let user = new Person('Ana Morova');
+
+              user.describe() // 'Person called Ana Morova'
+          </code></pre>
+        </section>
+        <section>
+          <h2>Subclasses</h2>
+          <pre><code data-trim>
+              class Employee extends Person {
+
+                 constructor(name, title) {
+                    super(name);
+                    this.title = title;
+                 }
+
+                 describe() {
+                    return super.describe() +
+                       ' (' + this.title + ')';
+                 }
+
+              }
+
+              let bob = new Employee('Bob', 'manager')
+
+              bob.describe() // 'Person called Bob (manager)'
+          </code></pre>
+        </section>
+        <section>
+          <h2>Static members</h2>
+          <pre><code>
+              class Point {
+
+                 constructor(x, y) {
+                    this.x = x;
+                    this.y = y;
+                 }
+
+                 static at(x, y) {
+                    return new Point(0, 0);
+                 }
+
+              }
+          </code></pre>
+        </section>
+        <section>
+          <h2>Class expressions</h2>
+          <p>Classes are expressions:</p>
+          <pre><code>
+              let theClass = class Person {
+                 …
+              }
+
+              new theClass('Bob')
+          </code></pre>
+          <p>Classes can be anonymous:</p>
+          <pre><code>
+              let Person = class {
+                 …
+              }
+
+              let bob = new Person('Bob')
+          </code></pre>
+        </section>
+      </section>
+
+      <section>
+        <h2>Value Hierarchy</h2>
+        <ul class="object-listing">
+          <li><code>null</code></li>
+          <li><code>undefined</code></li>
+          <li><code>Number</code></li>
+          <li><code>String</code></li>
+          <li><code>Boolean</code></li>
+          <li><code>Symbol</code>
+          </li>
+          <li><code>Object</code>
+            <ul>
+              <li><code>Function</code></li>
+              <li><code>Array</code></li>
+              <li><code>RegExp</code></li>
+              …
+            </ul>
+          </li>
+        </ul>
+      </section>
+
+      <section>
+        <section>
+          <h2>Variables</h2>
+          <pre><code>
+              let age = 21
+
+              age++ // happy birthday!
+          </code></pre>
+          <pre><code>
+              const pi = 3.1416
+
+              pi += 0.1 // exception: don't break your math!
+          </code></pre>
+        </section>
+        <section>
+          <h2>Block scope</h2>
+          <pre><code>
+              { // block
+
+                 let a = 1
+
+                 a === 1
+
+                 { // nested block
+
+                    let a = 2
+
+                    a === 2
+                 }
+
+                 a === 1
+              }
+          </code></pre>
+        </section>
+        <section>
+          <h2>Object destructuring</h2>
+          <pre><code data-trim class="typescript">
+              function point() { return { x: 1, y: 2, color: 'red' } }
+
+              let { x, y } = point()         // destructure
+
+              x === 1 && y === 2
+
+              let { x: i, y: j } = point()  // with renaming
+
+              i === 1 && j === 2
+
+              let { x, y, z = 0 } = point()  // with default value
+
+              x === 1 && y === 2 && z === 0
+          </code></pre>
+          <p>Applied to function arguments…</p>
+          <pre><code data-trim class="typescript">
+              function g({ name }) { return name + '.' }
+              function g({ name: n }) { return n + '.' }
+              function g({ name, end = '.' }) { return name + end }
+
+              g({ name: 'Bob' }) === 'Bob.'
+          </code></pre>
+        </section>
+        <section>
+          <h2>Array destructuring</h2>
+          <pre><code data-trim class="typescript">
+              // Array destructuring (with skip)
+              let [a, , c] = [1, 2, 3];
+              a === 1 && c === 3
+
+              // idiom: swap variables
+              [c, a] = [a, c]
+              a === 3 && c === 1
+
+              // Fail-soft array destructuring
+              let [a] = [];
+              a === undefined;
+
+              // Fail-soft array destructuring with defaults
+              let [a = 1] = [];
+              a === 1;
+          </code></pre>
+        </section>
+      </section>
+      <section>
+        <section>
+          <h2>Control Flow</h2>
+        </section>
+        <section>
+          <h2>Blocks</h2>
+          <pre><code>
+          {
+             statement_1;
+             statement_2;
+             .
+             .
+             .
+             statement_n;
+          }
+          </code></pre>
+        </section>
+        <section>
+          <h2>Conditionals</h2>
+          <h3>If statement</h3>
+          <pre><code>
+              if (condition_1)
+                 statement_1
+
+              else if (condition_2)
+                 statement_2
+
+              …
+
+              else if (condition_n)
+                 statement_n
+
+              else
+                statement_last;
+          </code></pre>
+        </section>
+        <section>
+          <h2>Conditionals</h2>
+          <h3>Switch statement</h3>
+          <pre><code>
+              switch (expression) {
+
+                 case label_1:
+                    statement_1
+                    break;
+
+                 case label_2:
+                    statement_2
+                    break;
+                 …
+                 default:
+                    statement_def
+                    break;
+
+              }
+          </code></pre>
+        </section>
+        <section>
+          <h2>Throwing exceptions</h2>
+          <pre><code>
+              throw new Error('oops')
+          </code></pre>
+          <p>Any value can be thrown:</p>
+          <pre><code>
+              throw 'error'
+
+              throw 42
+
+              throw true
+
+              throw {
+                 toString: function() {
+                    return 'holly cow!'
+                 }
+              }
+          </code></pre>
+        </section>
+        <section>
+          <h2>Catching exceptions</h2>
+          <pre><code data-trim>
+              openFile();
+
+              try {
+
+                 writeFile(theData);
+
+              } catch(e) {
+
+                 handleError(e);
+
+              } finally {
+
+                 closeFile();
+
+              }
+          </code></pre>
+        </section>
+        <section>
+          <h2>Iteration</h2>
+          <h3>for statement</h3>
+          <pre><code class="typescript">
+              for (let i = 0; i &lt; array.length; i++) {
+                 result += array[i]
+              }
+          </code></pre>
+        </section>
+        <section>
+          <h2>Iteration</h2>
+          <h3>while statement</h3>
+          <pre><code class="typescript">
+              let n = 0;
+              let x = 0;
+              while (n < 3) {
+                n++;
+                x += n;
+              }
+          </code></pre>
+        </section>
+        <section>
+          <h2>Iteration</h2>
+          <h3>do…while statement</h3>
+          <pre><code class="typescript">
+              let i = 0;
+              do {
+                 i += 1;
+                 console.log(i);
+              } while (i < 5);
+          </code></pre>
+        </section>
+        <section>
+          <h2>Iteration</h2>
+          <h3>for…of statement</h3>
+          <p>Goes over iterable objects</p>
+          <pre><code class="typescript">
+              let array = [3, 5, 7];
+              for (let n of array) {
+                 console.log(n); // logs 3, 5, 7
+              }
+          </code></pre>
+        </section>
+        <!--
+        <section>
+          <h2>Promises</h2>
+
+        </section>
+        -->
+      </section>
+
+      <section>
+        <section>
+          <h2>Modules</h2>
+          <h3><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/export">Exporting</a></h3>
+          <pre><code>
+              export const e = 2.71828182846
+
+              export function sum(x, y) {
+                 return x + y
+              }
+
+              export class Dog {
+                 bark() { console.log('Wouf!') }
+              }
+
+              export { e, sum, Dog as Doggie }
+
+              export * from 'lib/math'
+
+              export default function(x) {
+                 return Math.log(x)
+              }
+          </code></pre>
+        </section>
+        <section>
+          <h2>Modules</h2>
+          <h3><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import">Importing</a></h3>
+          <pre><code data-trim>
+              import * as math from "lib/math"
+              alert("2π = " + math.sum(math.pi, math.pi))
+          </code></pre>
+          <pre><code data-trim>
+              import { sum, pi } from "lib/math"
+              alert("2π = " + sum(pi, pi))
+          </code></pre>
+          <pre><code data-trim>
+              import 'module' // no bindings: for side effects only
+
+              import { Dog as Perro, Cat as Gato } from 'animals'
+
+              import path from 'path' // default export
+
+              import * as lodash from 'lodash' // all exports
+          </code></pre>
+        </section>
+      </section>
+
+      <section>
+        <section>
+          <h2>Execution model</h2>
+          <img src="media/JavaScript-execution-model.svg"
+               width="600" class="zen"/>
+        </section>
+        <section>
+          <h2>Object heap</h2>
+          <p>Where allocated objects live</p>
+          <pre><code>
+              o = { a: 1, b: 2 };
+              a = [1, 2, 3];
+              s = "To be or not to be";
+              p = new Person("Jhon Doe");
+          </code></pre>
+        </section>
+        <section>
+          <h2>Call stack</h2>
+          <pre><code>
+function job() {
+   start()
+   morningWork()
+   lunch()
+   afternoonWork()
+   finish()
+}
+function start() { console.log('checked Facebook') }
+function morningWork() { readMail(); sendMail() }
+function lunch() { console.log('pizza') }
+function afternoonWork() { deleteMail(); }
+function finish() { console.log('phew!') }
+function readMail() { console.log('read mail') }
+function sendMail() { console.log('send mail') }
+function deleteMail() { console.log('delete mail') }
+
+job()
+          </code></pre>
+          <p><a href="http://latentflip.com/loupe/?code=ZnVuY3Rpb24gam9iKCkgewogICBzdGFydCgpCiAgIG1vcm5pbmdXb3JrKCkKICAgbHVuY2goKQogICBhZnRlcm5vb25Xb3JrKCkKICAgZmluaXNoKCkKfQpmdW5jdGlvbiBzdGFydCgpIHsgY29uc29sZS5sb2coJ2NoZWNrZWQgRmFjZWJvb2snKSB9CmZ1bmN0aW9uIG1vcm5pbmdXb3JrKCkgeyByZWFkTWFpbCgpOyBzZW5kTWFpbCgpIH0KZnVuY3Rpb24gbHVuY2goKSB7IGNvbnNvbGUubG9nKCdwaXp6YScpIH0KZnVuY3Rpb24gYWZ0ZXJub29uV29yaygpIHsgZGVsZXRlTWFpbCgpOyB9CmZ1bmN0aW9uIGZpbmlzaCgpIHsgY29uc29sZS5sb2coJ3BoZXchJykgfQpmdW5jdGlvbiByZWFkTWFpbCgpIHsgY29uc29sZS5sb2coJ3JlYWQgbWFpbCcpIH0KZnVuY3Rpb24gc2VuZE1haWwoKSB7IGNvbnNvbGUubG9nKCdzZW5kIG1haWwnKSB9CmZ1bmN0aW9uIGRlbGV0ZU1haWwoKSB7IGNvbnNvbGUubG9nKCdkZWxldGUgbWFpbCcpIH0KCmpvYigpCg%3D%3D!!!PGJ1dHRvbj5DbGljayBtZSE8L2J1dHRvbj4%3D">See
+          example</a></p>
+        </section>
+        <section>
+          <h2>Message queue</h2>
+          <h3>Event loop</h3>
+          <pre><code>
+              while (queue.waitForMessage()) {
+                 queue.processNextMessage();
+              }
+          </code></pre>
+          <p>All blocking operations are handled asynchronously through
+          events.</p>
+        </section>
+        <section>
+          <h2>Message queue</h2>
+          <h3>Events</h3>
+          <p>Add a message to the queue when an event happens.</p>
+          <button id="click-me" class="big-button">Click me!</button>
+          <pre><code class="typescript" data-trim>
+              // grab a reference to the button
+              let button = document.getElementById('click-me');
+
+              // register event listener
+              button.addEventListener('click', function() {
+                 console.log('clicked!');
+              });
+
+              // ready to receive messages from click events!
+          </code></pre>
+          <p><a href="http://latentflip.com/loupe/?code=JC5vbignYnV0dG9uJywgJ2NsaWNrJywgZnVuY3Rpb24gb25DbGljaygpIHsKICBjb25zb2xlLmxvZygiY2xpY2tlZCEiKTsKfSk7Cg%3D%3D!!!PGJ1dHRvbj5DbGljayBtZSE8L2J1dHRvbj4%3D">See example</a></p>
+        </section>
+        <!--
+        <section>
+          <h2>Message queue</h2>
+          <h3>Network requests</h3>e
+          <pre><code class="typescript">
+function showText() {
+   console.log(`Got answer ${this.responseText}`);
+}
+
+let request = new XMLHttpRequest();
+request.addEventListener('load', showText);
+request.open('GET', 'https://google.com/robots.txt');
+request.send();
+          </code></pre>
+        </section>
+        -->
+        <section>
+          <h2>Message queue</h2>
+          <h3>Timeouts</h3>
+          <p>Add a message to the queue when time elapses.</p>
+          <pre><code class="typescript">
+              setTimeout(function() {
+                 console.log('At least 3 seconds elapsed');
+              }, 3000);
+          </code></pre>
+          <a href="http://latentflip.com/loupe/?code=c2V0VGltZW91dChmdW5jdGlvbiB0aHJlZVNlY29uZHMoKSB7CiAgIGNvbnNvbGUubG9nKCdBdCBsZWFzdCAzIHNlY29uZHMgZWxhcHNlZCcpOwp9LCAzMDAwKTsK!!!PGJ1dHRvbj5DbGljayBtZSE8L2J1dHRvbj4%3D">See example</a>
+        </section>
+        <section>
+          <h2>Message queue</h2>
+          <h3>Timeouts</h3>
+          <p>What will this print on the console?</p>
+          <pre><code>
+              console.log('this is the start');
+
+              setTimeout(function a() {
+                 console.log('this is a msg from a()');
+              }, 0);
+
+              console.log('this is just a message');
+
+              setTimeout(function b() {
+                 console.log('this is a msg from b()');
+              }, 0);
+
+              console.log('this is the end');
+          </code></pre>
+          <p><a href="http://latentflip.com/loupe/?code=Y29uc29sZS5sb2coJ3RoaXMgaXMgdGhlIHN0YXJ0Jyk7CgpzZXRUaW1lb3V0KGZ1bmN0aW9uIGEoKSB7CiAgY29uc29sZS5sb2coJ3RoaXMgaXMgYSBtc2cgZnJvbSBhKCknKTsKfSwgMCk7Cgpjb25zb2xlLmxvZygndGhpcyBpcyBqdXN0IGEgbWVzc2FnZScpOwoKc2V0VGltZW91dChmdW5jdGlvbiBiKCkgewogIGNvbnNvbGUubG9nKCd0aGlzIGlzIGEgbXNnIGZyb20gYigpJyk7Cn0sIDApOwoKY29uc29sZS5sb2coJ3RoaXMgaXMgdGhlIGVuZCcpOw%3D%3D!!!PGJ1dHRvbj5DbGljayBtZSE8L2J1dHRvbj4%3D">See example</a></p>
+        </section>
+        <section>
+          <h2>Concurrency</h2>
+          <p>Throwing umptazillion CPU cores at JavaScript doesn't buy you a
+            whole lot:</p>
+          <video src="media/Dancing-CPUs.mp4" height="500" controls>
+            Sorry, your browser doesn't support embedded videos.
+          </video>
+        </section>
+        <section>
+          <h2>Concurrency</h2>
+          <h3><a href="https://www.html5rocks.com/en/tutorials/workers/basics/">Web Workers</a></h3>
+          <p>Each worker has its own runtime<br/>(stack, heap and message
+          queue).</p>
+          <div class="row">
+            <img src="media/JavaScript-execution-model.svg" width="200" class="zen"/>
+            <i class="fa fa-long-arrow-left"
+               style="margin-left: 1em"
+               aria-hidden="true"></i>
+            <i class="fa fa-envelope"
+               style="margin: 1ex"
+               aria-hidden="true"></i>
+            <i class="fa fa-long-arrow-right"
+               style="margin-right: 1em"
+               aria-hidden="true"></i>
+            <img src="media/JavaScript-execution-model.svg" width="200" class="zen"/>
+          </div>
+          <p>Workers communicate via message passing<br/>(by adding messages
+            to each other's queues).</p>
+        </section>
+        <section>
+          <h2>Tasks and microtasks</h2>
+          See https://jakearchibald.com/2015/tasks-microtasks-queues-and-schedules/
+        </section>
+      </section>
+
+      <section>
+        <section>
+          <h2>To conclude</h2>
+          <p>Follow…</p>
+          <img src="media/JavaScript-The-Good-Parts.jpg" width="40%"/>
+          <img src="media/Functional-JavaScript.jpg" width="40%"/>
+          <p><a href="http://www.crockford.com/javascript/little.html">JavaScript is Lisp</a> in C's clothing</p>
+        </section>
+        <section>
+          <p>Avoid…</p>
+          <p><a href="https://www.destroyallsoftware.com/talks/wat">WAT</a>
+            moments<br/>
+            <small>(start at 1:20)</small></p>
+          <img src="media/JavaScript-The-Evil-Parts.png" width="40%"/>
+        </section>
+      </section>
+
+      <!---[ C o n c l u s i o n ]--->
+
+
+      <section>
+        <h2>Links</h2>
+        <ul>
+          <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide">MDN's JavaScript guide</a></li>
+          <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/A_re-introduction_to_JavaScript">A re-introduction to JavaScript</a></li>
+          <li><a href="http://eloquentjavascript.net">Eloquent JavaScript</a></li>
+          <li><a href="https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Objects">Introducing JavaScript objects</a></li>
+          <li><a href="https://developer.mozilla.org/en-US/docs/Learn/JavaScript">Learn web development: JavaScript</a></li>
+        </ul>
+      </section>
+
+      <section>
+        <h2 style="margin-bottom: 320px">Questions?</h2>
+        <div class=glossy></div>
+        <div class=yin-yang>
+          <div class=yin></div>
+          <div class=yang></div>
+        </div>
+        <div class=container></div>
+      </section>
+
+    </div>
+  </body>
 </html>

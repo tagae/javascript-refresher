@@ -1,2 +1,52 @@
-.reveal .progress
-  height: 20px
+@import yin-yang
+
+$fa-font-path: '~font-awesome/fonts/'
+@import node_modules/font-awesome/scss/font-awesome
+
+.reveal
+
+  background: radial-gradient(circle, #4d4d4d, #262626, #000)
+
+  h3
+    text-transform: capitalize
+
+  img.zen
+    border: none
+    background: none
+    box-shadow: none
+
+  pre code
+    max-height: initial // allow higher code snippets
+
+.cover
+  h1
+    font-size: 1.5em
+  h2
+    font-size: 1em
+
+.bi-column-box
+  position: absolute
+  width: 50%
+
+.bi-column-box-left
+  left: 0
+
+.bi-column-box-right
+  left: 50%
+
+.object-listing li
+  code
+    color: hsl(180, 70, 70)
+
+.discrete-comment
+  color: hsl(0, 0, 50)
+
+.big-button
+  width: 8em
+  height: 2em
+  font-size: x-large
+
+div.row
+  display: flex
+  justify-content: center
+  align-items: center
