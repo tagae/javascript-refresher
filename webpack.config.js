@@ -19,7 +19,7 @@ module.exports = {
   devtool: 'inline-source-map',
 
   performance: {
-    hints: false // muffle warning about bundle size
+    hints: false // muffle warning bundle size warning
   },
 
   module: {
