@@ -1,15 +1,20 @@
+Make sure you have [Node.js] on your system.
+
 Start by downloading all necessary packages:
 
-    yarn
+    npm install
 
 To open the slides do
 
-    yarn start
+    npm start
 
 The slides will auto-refresh as you save your changes.
 
-To build the final distribution do
+To build the distribution do
 
-   yarn build
+    npm run build
 
-The result will be under dist/
+The result will be under `dist/`. These static files
+can be published on any webserver.
+
+[Node.js]: https://nodejs.org/

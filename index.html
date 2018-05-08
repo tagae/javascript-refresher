@@ -12,18 +12,19 @@
         <h1>JavaScript</h1>
         <h2>The Yin and Yang of Functions and Objects</h2>
         <img src="media/Yin-Yang.svg" width="30%" class="zen">
-        <!-- <h2>陰陽</h2> -->
-        <p>
-          By Sebastián González<br>
-          EPL / LSINF1212<br>
-          13 February 2017
-        </p>
+        <p class="author">By Sebastián González</p>
+      </section>
+
+      <section>
+        <h2>Presentation Structure</h2>
+        <p>Go right (&rightarrow;) to change topic</p>
+        <p>Go down (&downarrow;) to deepen topic</p>
       </section>
 
       <section>
         <section>
           <h2>JavaScript</h2>
-          <h4><a href="http://javascript.crockford.com/javascript.html">
+          <h4><a href="http://crockford.com/javascript/javascript.html">
               The World's Most Misunderstood Programming Language
           </a></h4>
           <p>
@@ -39,16 +40,25 @@
         </section>
         <section>
           <div class="row">
-            <img src="media/ECMA-262.jpg" width="50%" style="margin-right: 1em">
+            <img src="media/ECMA-262.jpg" width="40%" style="margin-right: 1em">
             <ul>
               <li>1st ed. 1997</li>
               <li>2nd ed. 1998</li>
               <li>3rd ed. 1999</li>
               <li>4th not published</li>
-              <li>5th ed. 2009</li>
-              <li>5.1th ed. 2011</li>
-              <li>6th ed. 2015</li>
-              <li>7th ed. 2016</li>
+              <li>5th ed. 2009<br/>
+                <small>a.k.a. es5</small></li>
+              <li>5.1th ed. 2011<br/>
+              </li>
+              <li><a href="https://www.ecma-international.org/ecma-262/6.0/index.html">6th ed. 2015</a><br/>
+                <small>ECMAScript 2015, a.k.a. es6</small>
+              </li>
+              <li><a href="https://www.ecma-international.org/ecma-262/7.0/index.html">7th ed. 2016</a><br/>
+                <small>ECMAScript 2016, a.k.a. es7</small>
+              </li>
+              <li><a href="https://www.ecma-international.org/ecma-262/8.0/index.html">8th ed. 2017</a><br/>
+                <small>ECMAScript 2017, a.k.a. es8</small>
+              </li>
             </ul>
           </div>
 
@@ -59,6 +69,16 @@
             language in a host environment, and it is up to the host
             environment to provide mechanisms for communicating with the
             outside world.</p>
+          <p>Host environments:</p>
+          <dl>
+            <dt>
+              Browser
+            </dt>
+            <dt>
+            <dt>
+              Node.js
+            </dt>
+          </dl>
         </section>
       </section>
 
@@ -71,17 +91,17 @@
       </section>
 
       <section>
-        <h2>Undefined</h2>
-        <p>Uninitialised</p>
-        <p>Not known</p>
-        <pre><code>undefined</code></pre>
-      </section>
-
-      <section>
         <h2>Null</h2>
         <p>No content</p>
         <p>Deliberate non-value</p>
         <pre><code>null</code></pre>
+      </section>
+
+      <section>
+        <h2>Undefined</h2>
+        <p>Uninitialised</p>
+        <p>Not known</p>
+        <pre><code>undefined</code></pre>
       </section>
 
       <section>
@@ -170,7 +190,7 @@
         </section>
         <section>
           <h6>Idiom</h6>
-          <h2>Check before use</h2>
+          <h2>Safe navigation</h2>
           <pre><code>
               let owner = account && account.owner()
           </code></pre>
@@ -226,6 +246,8 @@
               +'23' === 23
 
               +'0x10' === 16
+
+              +age
           </code></pre>
         </section>
       </section>
@@ -362,9 +384,9 @@
           <div class="fragment">
           <p>same as</p>
           <pre><code>
-              let increment = x => x + 1
+              var increment = x => x + 1
 
-              let gcd = (x, y) => {
+              var gcd = (x, y) => {
                  if (x > y) return gcd(y, x);
                  if (x === 0) return y;
                  return gcd(y % x, x)
@@ -422,53 +444,6 @@
            function derivative(f, dx) {
               return x => (f(x + dx) - f(x)) / dx;
            }
-          </code></pre>
-        </section>
-        <section>
-          <h2>Default Parameter Values</h2>
-          <pre><code>
-              function f (x, y = 7, z = 42) {
-                 return x + y + z
-              }
-
-              f(1) === 50
-          </code></pre>
-        </section>
-        <section>
-          <h2>Rest Parameter</h2>
-          <pre><code>
-              function f(head, ...tail) {
-                 return tail;
-              }
-
-              f(1, 2, 3, 4) === [2, 3, 4]
-          </code></pre>
-        </section>
-        <section>
-          <h2>Spread Operator</h2>
-          <pre><code>
-              function f(x, y, z) {
-                 return x + y + z;
-              }
-
-              f(...[1, 2, 3]) === f(1, 2, 3)
-
-              f(...[1, 2, 3]) === 6
-
-              let a = [1, 2, 3]
-
-              f(...a) === 6
-          </code></pre>
-        </section>
-        <section>
-          <h6>Idiom</h6>
-          <h2>Keyword arguments</h2>
-          <pre><code>
-              users.add({
-                 id: 1000,
-                 name: 'nick',
-                 groups: ['staff', 'admin']
-              });
           </code></pre>
         </section>
       </section>
@@ -581,6 +556,31 @@
           </code></pre>
         </section>
         <section>
+          <h2>Method definitions</h2>
+          In ES5, methods are created like any other property:
+          <pre><code>
+var obj = {
+    foo: function () {
+        ···
+    },
+    bar: function () {
+        this.foo();
+    }
+}
+          </code></pre>
+          ES6 introduces syntax for creating mehtods:
+          <pre><code>
+const obj = {
+    foo() {
+        ···
+    },
+    bar() {
+        this.foo();
+    },
+}
+          </code></pre>
+        </section>
+        <section>
           <h2>Object creation</h2>
           <p>maker functions</p>
           <pre><code>
@@ -588,7 +588,7 @@
               return {
                 x: i,
                 y: j,
-                toString: function() {
+                toString() {
                   return `(&dollar;{this.x}, &dollar;{this.y})`
                 }
               }
@@ -739,6 +739,23 @@
               let bob = new Person('Bob')
           </code></pre>
         </section>
+        <section>
+          <h6>idiom</h6>
+          <h2>Mixins</h2>
+          <p>Functions with superclass parameter</p>
+          <pre><code>
+              const Storage = Sup => class extends Sup {
+                 save(database) { … }
+              };
+              const Validation = Sup => class extends Sup {
+                 validate(schema) { … }
+              };
+          </code></pre>
+          <pre><code data-trim>
+              class Person { … }
+              class Employee extends Storage(Validation(Person)) { … }
+          </code></pre>
+        </section>
       </section>
 
       <section>
@@ -764,101 +781,7 @@
 
       <section>
         <section>
-          <h2>Variables</h2>
-          <pre><code>
-              let age = 21
-
-              age++ // happy birthday!
-          </code></pre>
-          <pre><code>
-              const pi = 3.1416
-
-              pi += 0.1 // exception: don't break your math!
-          </code></pre>
-        </section>
-        <section>
-          <h2>Block scope</h2>
-          <pre><code>
-              { // block
-
-                 let a = 1
-
-                 a === 1
-
-                 { // nested block
-
-                    let a = 2
-
-                    a === 2
-                 }
-
-                 a === 1
-              }
-          </code></pre>
-        </section>
-        <section>
-          <h2>Object destructuring</h2>
-          <pre><code data-trim class="typescript">
-              function point() { return { x: 1, y: 2, color: 'red' } }
-
-              let { x, y } = point()         // destructure
-
-              x === 1 && y === 2
-
-              let { x: i, y: j } = point()  // with renaming
-
-              i === 1 && j === 2
-
-              let { x, y, z = 0 } = point()  // with default value
-
-              x === 1 && y === 2 && z === 0
-          </code></pre>
-          <p>Applied to function arguments…</p>
-          <pre><code data-trim class="typescript">
-              function g({ name }) { return name + '.' }
-              function g({ name: n }) { return n + '.' }
-              function g({ name, end = '.' }) { return name + end }
-
-              g({ name: 'Bob' }) === 'Bob.'
-          </code></pre>
-        </section>
-        <section>
-          <h2>Array destructuring</h2>
-          <pre><code data-trim class="typescript">
-              // Array destructuring (with skip)
-              let [a, , c] = [1, 2, 3];
-              a === 1 && c === 3
-
-              // idiom: swap variables
-              [c, a] = [a, c]
-              a === 3 && c === 1
-
-              // Fail-soft array destructuring
-              let [a] = [];
-              a === undefined;
-
-              // Fail-soft array destructuring with defaults
-              let [a = 1] = [];
-              a === 1;
-          </code></pre>
-        </section>
-      </section>
-      <section>
-        <section>
           <h2>Control Flow</h2>
-        </section>
-        <section>
-          <h2>Blocks</h2>
-          <pre><code>
-          {
-             statement_1;
-             statement_2;
-             .
-             .
-             .
-             statement_n;
-          }
-          </code></pre>
         </section>
         <section>
           <h2>Conditionals</h2>
@@ -951,6 +874,17 @@
         </section>
         <section>
           <h2>Iteration</h2>
+          <h3>for…of statement</h3>
+          <p>Goes over iterable objects</p>
+          <pre><code class="typescript">
+              let array = [3, 5, 7];
+              for (let n of array) {
+                 console.log(n); // logs 3, 5, 7
+              }
+          </code></pre>
+        </section>
+        <section>
+          <h2>Iteration</h2>
           <h3>while statement</h3>
           <pre><code class="typescript">
               let n = 0;
@@ -972,30 +906,311 @@
               } while (i < 5);
           </code></pre>
         </section>
+      </section>
+
+      <section>
         <section>
-          <h2>Iteration</h2>
-          <h3>for…of statement</h3>
-          <p>Goes over iterable objects</p>
-          <pre><code class="typescript">
-              let array = [3, 5, 7];
-              for (let n of array) {
-                 console.log(n); // logs 3, 5, 7
+          <h2>Variables</h2>
+          <pre><code>
+              var color = 'red'
+          </code></pre>
+          <pre><code>
+              let age = 21
+
+              age++ // happy birthday!
+          </code></pre>
+          <pre><code>
+              const pi = 3.1416
+
+              pi += 0.1 // exception: don't break your math!
+          </code></pre>
+        </section>
+        <section>
+          <h2>Block scoping: <code>let</code></h2>
+          <pre><code>
+              { // block
+
+                 let a = 1
+
+                 a === 1
+
+                 { // nested block
+
+                    let a = 2
+
+                    a === 2
+                 }
+
+                 a === 1
+
+                 b = 0 // error: cannot access until declared
+
+                 let b
+              }
+          </code></pre>
+          same applies to <code>const</code>
+        </section>
+        <section>
+          <h2>Function scoping: <code>var</code></h2>
+          <pre><code>
+              function a() {
+                 …
+                 var x = 0
+                 …
+              }
+          </code></pre>
+          equivalent to
+          <pre><code>
+              function a() {
+                 var x = undefined
+                 …
+                 x = 0
+                 …
               }
           </code></pre>
         </section>
-        <!--
         <section>
-          <h2>Promises</h2>
+          <h2>Function scoping: <code>var</code></h2>
+          <pre><code>
+              function a() {
+                 var a = 1
+                 var a = 2 // allows redeclaration
 
+                 a === 2
+              }
+
+              function func(arg) {
+                 var arg; // redeclaration: does nothing
+              }
+
+              function func(arg) {
+                 {
+                    // same `var` scope as `arg`
+                    var arg; // redeclaration: does nothing
+                 }
+              }
+          </code></pre>
         </section>
-        -->
+        <section>
+          <h2>Coding style:
+            <code>const</code>,
+            <code>let</code>,
+            <code>var</code>
+          </h2>
+          <ol>
+            <li>Use <code>const</code> whenever possible</li>
+            <li>Otherwise use <code>let</code></li>
+            <li>Avoid <code>var</code>
+          </ol>
+        </section>
+        <section>
+          <h6>Idiom</h6>
+          <h4>Immediately-Invoked Function Expression</h4>
+          <pre><code>
+              (function () {
+                 var tmp = …;
+                 … // use tmp
+              }())
+              console.log(tmp) // ReferenceError
+          </code></pre>
+          deprecated by <code>let</code> within blocks:
+          <pre><code>
+          {
+             let tmp = …;
+             …
+          }
+          console.log(tmp) // ReferenceError
+          </code></pre>
+        </section>
+        <section>
+          <h2>Binding of variables in loops</h2>
+          <pre><code>
+              const arr = [];
+              // var: single binding for whole loop
+              for (var i = 0; i < 3; i++) {
+                  arr.push(() => i);
+              }
+              arr.map(x => x()); // [3,3,3]
+          </code></pre>
+          <pre><code>
+              const arr = [];
+              // let: new binding for each iteration
+              for (let i = 0; i < 3; i++) {
+                  arr.push(() => i);
+              }
+              arr.map(x => x()); // [0,1,2]
+          </code></pre>
+        </section>
+      </section>
+      <section>
+        <section>
+          <h2>Destructuring</h2>
+          <h5>Extracting data from objects</h5>
+        </section>
+        <section>
+          <h2>Object destructuring</h2>
+          <pre><code data-trim class="typescript">
+              function point() { return { x: 1, y: 2, color: 'red' } }
+
+              let { x, y } = point()         // destructure
+
+              x === 1 && y === 2
+
+              let { x: i, y: j } = point()   // with renaming
+
+              i === 1 && j === 2
+
+              let { x, y, z = 0 } = point()  // with default value
+
+              x === 1 && y === 2 && z === 0
+
+              let FOO = 'foo';
+              let { [FOO]: f } = { foo: 123 }; // with computed prop name
+              f === 123
+          </code></pre>
+        </section>
+        <section>
+          <h2>Array destructuring</h2>
+          <pre><code data-trim class="typescript">
+              // Array destructuring (with elision)
+              let [a, , c] = [1, 2, 3];
+              a === 1 && c === 3
+
+              // idiom: swap variables
+              [c, a] = [a, c]
+              a === 3 && c === 1
+
+              // Fail-soft array destructuring
+              let [a] = [];
+              a === undefined;
+
+              // Fail-soft array destructuring with defaults
+              let [a = 1] = [];
+              a === 1;
+
+              // Rest operator
+              let [x, ...y] = ['a', 'b', 'c'];
+              // x='a'; y=['b', 'c']
+
+              // Rest operator against a smaller-than-expected array
+              let [x, y, ...z] = ['a'];
+              // x='a'; y=undefined; z=[]
+          </code></pre>
+          <aside class="notes">
+            <p>&rightarrow; spread operator contributes data to array literals
+              and function calls</p>
+            <p>&rightarrow; the rest operator extracts data</p>
+          </aside>
+        </Section>
+        <section>
+          <h2>Parameter destructuring</h2>
+          <pre><code>
+              function func(FORMAL_PARAMETERS) {
+                 CODE
+              }
+              func(ACTUAL_PARAMETERS);
+          </code></pre>
+          <p>is roughly equivalent to:</p>
+          <pre><code>
+      {
+          let [FORMAL_PARAMETERS] = [ACTUAL_PARAMETERS];
+          {
+              CODE
+          }
+      }
+          </code></pre>
+          <p>Actuals are destructured into formals</p>
+        </section>
+        <section>
+          <h6>Parameter Destructuring</h6>
+          <h2>Example</h2>
+          <pre><code>
+              function logSum(x = 0, y = 0) {
+                 console.log(x + y)
+              }
+
+              logSum(7, 8)
+          </code></pre>
+          <p>becomes upon evaluation</p>
+          <pre><code>
+              {
+                 let [x = 0, y = 0] = [7, 8]
+                 {
+                    console.log(x + y)
+                 }
+              }
+          </code></pre>
+        </section>
+        <section>
+          <h2>Default Parameter Values</h2>
+          <pre><code>
+              function f(x, y = 7, z = 42) {
+                 return x + y + z
+              }
+
+              f(1) === 50
+          </code></pre>
+        </section>
+        <section>
+          <h2>Rest Parameter</h2>
+          <pre><code>
+              function f(head, ...tail) {
+                 return tail;
+              }
+
+              f(1, 2, 3, 4) === [2, 3, 4]
+          </code></pre>
+        </section>
+        <section>
+          <h2>Spread Operator</h2>
+          <pre><code class="typescript">
+              function f(x, y, z) {
+                 return x + y + z;
+              }
+
+              f(...[1, 2, 3]) === f(1, 2, 3)
+
+              f(...[1, 2, 3]) === 6
+
+              let a = [1, 2, 3]
+
+              f(...a) === 6
+          </code></pre>
+        </section>
+        <section>
+          <h6>Idiom</h6>
+          <h2>Named arguments</h2>
+          <pre><code data-trim class="typescript">
+              function g({ name, end = '.' }) { return name + end }
+
+              g({ name: 'Bob' }) === 'Bob.'
+
+              g({ name: 'Bob', end: '!' }) === 'Bob!'
+          </code></pre>
+        </section>
+        <section>
+          <h2>Default Values</h2>
+          <p>Default values are computed on demand</p>
+          <pre><code class="typescript">
+              const { prop: y = someFunc() } = someValue;
+          </code></pre>
+          equivalent to
+          <pre><code class="typescript">
+              let y;
+              if (someValue.prop === undefined) {
+                  y = someFunc();
+              } else {
+                  y = someValue.prop;
+              }
+          </code></pre>
+        </section>
       </section>
 
       <section>
         <section>
           <h2>Modules</h2>
-          <h3><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/export">Exporting</a></h3>
-          <pre><code>
+          <h3>Exporting</h3>
+          <pre><code class="typescript">
               export const e = 2.71828182846
 
               export function sum(x, y) {
@@ -1017,7 +1232,7 @@
         </section>
         <section>
           <h2>Modules</h2>
-          <h3><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import">Importing</a></h3>
+          <h3>Importing</h3>
           <pre><code data-trim>
               import * as math from "lib/math"
               alert("2π = " + math.sum(math.pi, math.pi))
@@ -1029,7 +1244,7 @@
           <pre><code data-trim>
               import 'module' // no bindings: for side effects only
 
-              import { Dog as Perro, Cat as Gato } from 'animals'
+              import { Dog as Hond, Cat as Mus } from 'animals'
 
               import path from 'path' // default export
 
@@ -1037,22 +1252,12 @@
           </code></pre>
         </section>
       </section>
-
       <section>
         <section>
+          <h6>Asynchronous programming</h6>
           <h2>Execution model</h2>
           <img src="media/JavaScript-execution-model.svg"
                width="600" class="zen"/>
-        </section>
-        <section>
-          <h2>Object heap</h2>
-          <p>Where allocated objects live</p>
-          <pre><code>
-              o = { a: 1, b: 2 };
-              a = [1, 2, 3];
-              s = "To be or not to be";
-              p = new Person("Jhon Doe");
-          </code></pre>
         </section>
         <section>
           <h2>Call stack</h2>
@@ -1079,64 +1284,46 @@ job()
           example</a></p>
         </section>
         <section>
-          <h2>Message queue</h2>
-          <h3>Event loop</h3>
-          <pre><code>
-              while (queue.waitForMessage()) {
-                 queue.processNextMessage();
-              }
-          </code></pre>
-          <p>All blocking operations are handled asynchronously through
-          events.</p>
+          <h2>Event Loop</h2>
+          <img src="media/event-loop.jpg" width="90%"/>
+          <small>from <a href="http://exploringjs.com/">exploringjs.com</a></small>
+          <aside class="notes">
+            <p>The event loop runs continually, executing any tasks queued.</p>
+            <p>An event loop has multiple task sources, but the browser gets to
+          pick which source to take a task from on each turn of the loop. This
+          allows the browser to give preference to performance sensitive tasks
+          such as user-input.</p>
+          </aside>
         </section>
         <section>
-          <h2>Message queue</h2>
-          <h3>Events</h3>
-          <p>Add a message to the queue when an event happens.</p>
-          <button id="click-me" class="big-button">Click me!</button>
-          <pre><code class="typescript" data-trim>
-              // grab a reference to the button
-              let button = document.getElementById('click-me');
+          <h2>Events</h2>
+          <h6>User interaction</h6>
+          <button id="click-me" class="big-button">Useless button</button>
+          <pre><code>
+        // grab a reference to the button
+        let button = document.getElementById('click-me');
 
-              // register event listener
-              button.addEventListener('click', function() {
-                 console.log('clicked!');
-              });
+        // register event listener
+        button.addEventListener('click', () => {
+           console.log('clicked!');
+        });
 
-              // ready to receive messages from click events!
+        // ready to receive messages from click events!
           </code></pre>
           <p><a href="http://latentflip.com/loupe/?code=JC5vbignYnV0dG9uJywgJ2NsaWNrJywgZnVuY3Rpb24gb25DbGljaygpIHsKICBjb25zb2xlLmxvZygiY2xpY2tlZCEiKTsKfSk7Cg%3D%3D!!!PGJ1dHRvbj5DbGljayBtZSE8L2J1dHRvbj4%3D">See example</a></p>
         </section>
-        <!--
         <section>
-          <h2>Message queue</h2>
-          <h3>Network requests</h3>e
-          <pre><code class="typescript">
-function showText() {
-   console.log(`Got answer ${this.responseText}`);
-}
-
-let request = new XMLHttpRequest();
-request.addEventListener('load', showText);
-request.open('GET', 'https://google.com/robots.txt');
-request.send();
-          </code></pre>
-        </section>
-        -->
-        <section>
-          <h2>Message queue</h2>
-          <h3>Timeouts</h3>
-          <p>Add a message to the queue when time elapses.</p>
-          <pre><code class="typescript">
-              setTimeout(function() {
+          <h2>Events</h2>
+          <h6>Timers</h6>
+          <pre><code>
+              setTimeout(() => {
                  console.log('At least 3 seconds elapsed');
               }, 3000);
           </code></pre>
           <a href="http://latentflip.com/loupe/?code=c2V0VGltZW91dChmdW5jdGlvbiB0aHJlZVNlY29uZHMoKSB7CiAgIGNvbnNvbGUubG9nKCdBdCBsZWFzdCAzIHNlY29uZHMgZWxhcHNlZCcpOwp9LCAzMDAwKTsK!!!PGJ1dHRvbj5DbGljayBtZSE8L2J1dHRvbj4%3D">See example</a>
         </section>
         <section>
-          <h2>Message queue</h2>
-          <h3>Timeouts</h3>
+          <h2>Events</h2>
           <p>What will this print on the console?</p>
           <pre><code>
               console.log('this is the start');
@@ -1155,6 +1342,199 @@ request.send();
           </code></pre>
           <p><a href="http://latentflip.com/loupe/?code=Y29uc29sZS5sb2coJ3RoaXMgaXMgdGhlIHN0YXJ0Jyk7CgpzZXRUaW1lb3V0KGZ1bmN0aW9uIGEoKSB7CiAgY29uc29sZS5sb2coJ3RoaXMgaXMgYSBtc2cgZnJvbSBhKCknKTsKfSwgMCk7Cgpjb25zb2xlLmxvZygndGhpcyBpcyBqdXN0IGEgbWVzc2FnZScpOwoKc2V0VGltZW91dChmdW5jdGlvbiBiKCkgewogIGNvbnNvbGUubG9nKCd0aGlzIGlzIGEgbXNnIGZyb20gYigpJyk7Cn0sIDApOwoKY29uc29sZS5sb2coJ3RoaXMgaXMgdGhlIGVuZCcpOw%3D%3D!!!PGJ1dHRvbj5DbGljayBtZSE8L2J1dHRvbj4%3D">See example</a></p>
         </section>
+      </section>
+
+      <section>
+        <section>
+          <h6>Asynchronous Programming</h6>
+          <h2>Promises</h2>
+        </section>
+        <section>
+          <h2>Producing a promise</h2>
+          <pre><code>
+             function asyncFunc() {
+                return new Promise(
+                   (resolve, reject) => {
+                      …
+                      if (…) {
+                         resolve(result); // success
+                      } else {
+                         reject(error); // failure
+                      }
+                   })
+             }
+          </code></pre>
+          <pre><code>
+              Promise.resolve(42)
+          </code></pre>
+          <pre><code>
+              Promise.reject('could not find answer')
+          </code></pre>
+        </section>
+        <section>
+          <h6>Promises</h6>
+          <h2>Consuming a promise</h2>
+          <pre><code>
+             asyncFunc()
+                .then(result => { … })
+                .catch(error => { … });
+          </code></pre>
+        </section>
+        <section>
+          <h2>Promise state</h2>
+          <img src="media/promise-states.jpg" width="50%">
+          <br/>
+          <small>from <a href="http://exploringjs.com/">exploringjs.com</a></small>
+        </section>
+        <section>
+          <h6>Promises</h6>
+          <h2>Example</h2>
+          <p>Promisifying <code>setTimeout</code></p>
+          <pre><code>
+      function delay(ms) {
+         return new Promise((resolve, reject) =>
+            setTimeout(resolve, ms))
+      }
+          </code></pre>
+          <pre><code>
+      delay(5000).then(() =>
+         console.log('5 seconds have passed!'));
+          </code></pre>
+        </section>
+        <section>
+          <h4>Example</h4>
+          <p>Promisifying Node.js-style callbacks</p>
+          <pre><code>
+  fs.readFile('config.json',
+     (error, text) => {
+        if (error) {
+           console.error('Error while reading config file')
+        } else {
+           try {
+              const obj = JSON.parse(text)
+              console.log(JSON.stringify(obj, null, 4))
+           } catch (e) {
+              console.error('Invalid JSON in file')
+           }
+       }
+     })
+          </code></pre>
+          <p>becomes:</p>
+          <pre><code>
+   readFilePromisified('config.json')
+      .then(text => {
+         const obj = JSON.parse(text);
+         console.log(JSON.stringify(obj, null, 4));
+      })
+      .catch(error => {
+         console.error('An error occurred', error);
+      });
+          </code></pre>
+        </section>
+        <section>
+          <h2>Promise Chaining</h2>
+          <pre><code>
+           asyncFunc1()
+              .then(result1 => {
+                 return asyncFunction2(result1)
+                    .then(result2 => {
+                       console.log(result2);
+                    })
+              })
+          </code></pre>
+          equivalent to
+          <pre><code>
+           asyncFunc1()
+              .then(result1 => {
+                  return asyncFunction2(result1)
+              })
+              .then(result2 => {
+                 console.log(result3);
+              })
+              .catch(error => {
+                 // handle errors of both async functions
+              })
+          </code></pre>
+        </section>
+        <section>
+          <h2>Promises</h2>
+          <p>Sequential execution</p>
+          <pre><code>
+              asyncFunc1().then(() => asyncFunc2());
+          </code></pre>
+          <p>Asynchronous execution</p>
+          <pre><code>
+              asyncFunc1()
+              asyncFunc2()
+          </code></pre>
+        </section>
+        <section>
+          <h6>Promises</h6>
+          <h2>Fork–Join</h2>
+          <pre><code>
+              Promise.all([
+                 fetch('http://example.com/file1.txt'),
+                 fetch('http://example.com/file2.txt')
+              ])
+              .then(([text1, text2]) => {
+                 // use all results
+              })
+              .catch(error => {
+                 // handle first rejection
+              })
+          </code></pre>
+        </section>
+        <section>
+          <h6>Promises</h6>
+          <h2>Fork-Race</h2>
+          <pre><code>
+              Promise.race([
+                 fetch('http://example.com/file1.txt'),
+                 fetch('http://example.com/file2.txt')
+              ])
+              .then(text => {
+                 // use first available result
+              })
+              .catch(error => {
+                 // handle rejection of all
+              })
+          </code></pre>
+        </section>
+        <section>
+          <h2>Microtasks</h2>
+
+          <p>Once a promise settles, it queues a microtask for its reactionary
+          callbacks.</p>
+
+          <p>The microtask queue is processed at the end of each task.</p>
+
+          <p>Any additional microtasks queued during microtasks are added to
+            the end of the queue and also processed.</p>
+        </section>
+        <section>
+          <h2>Microtasks</h2>
+          <p>What will this print on the console?</p>
+          <pre><code>
+          console.log('script start');
+
+          setTimeout(function() {
+            console.log('setTimeout');
+          }, 0);
+
+          Promise.resolve().then(function() {
+            console.log('promise1');
+          }).then(function() {
+            console.log('promise2');
+          });
+
+          console.log('script end');
+          </code></pre>
+          <a href="https://jakearchibald.com/2015/tasks-microtasks-queues-and-schedules/">
+            See it in action</a>
+        </section>
+      </section>
+
+      <section>
         <section>
           <h2>Concurrency</h2>
           <p>Throwing umptazillion CPU cores at JavaScript doesn't buy you a
@@ -1164,9 +1544,9 @@ request.send();
           </video>
         </section>
         <section>
-          <h2>Concurrency</h2>
-          <h3><a href="https://www.html5rocks.com/en/tutorials/workers/basics/">Web Workers</a></h3>
-          <p>Each worker has its own runtime<br/>(stack, heap and message
+          <h6>Concurrency</h6>
+          <h2><a href="https://www.html5rocks.com/en/tutorials/workers/basics/">Web Workers</a></h2>
+          <p>Each worker has its own runtime<br/>(stack, heap and task
           queue).</p>
           <div class="row">
             <img src="media/JavaScript-execution-model.svg" width="200" class="zen"/>
@@ -1181,12 +1561,8 @@ request.send();
                aria-hidden="true"></i>
             <img src="media/JavaScript-execution-model.svg" width="200" class="zen"/>
           </div>
-          <p>Workers communicate via message passing<br/>(by adding messages
-            to each other's queues).</p>
-        </section>
-        <section>
-          <h2>Tasks and microtasks</h2>
-          See https://jakearchibald.com/2015/tasks-microtasks-queues-and-schedules/
+          <p>Workers communicate via message passing<br/>(by adding tasks to
+            each other's queues).</p>
         </section>
       </section>
 
@@ -1205,18 +1581,26 @@ request.send();
             <small>(start at 1:20)</small></p>
           <img src="media/JavaScript-The-Evil-Parts.png" width="40%"/>
         </section>
+        <section>
+          <h2>Not Covered</h2>
+          <ul>
+            <li><code>async</code> / <code>await</code></li>
+            <li>Generators</li>
+            <li>Iterables and iterators</li>
+            <li>Reflection (including proxies)</li>
+            <li>Symbols</li>
+            <li>…</li>
+          </ul>
+        </section>
       </section>
-
-      <!---[ C o n c l u s i o n ]--->
-
 
       <section>
         <h2>Links</h2>
         <ul>
+          <li><a href="http://exploringjs.com/es6/ch_variables.html#sec_temporal-dead-zone">ExploringJS</a></li>
           <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide">MDN's JavaScript guide</a></li>
           <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/A_re-introduction_to_JavaScript">A re-introduction to JavaScript</a></li>
           <li><a href="http://eloquentjavascript.net">Eloquent JavaScript</a></li>
-          <li><a href="https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Objects">Introducing JavaScript objects</a></li>
           <li><a href="https://developer.mozilla.org/en-US/docs/Learn/JavaScript">Learn web development: JavaScript</a></li>
         </ul>
       </section>
@@ -1231,6 +1615,16 @@ request.send();
         <div class=container></div>
       </section>
 
+      <section>
+        <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
+          <img alt="Creative Commons License" src="media/by-sa.svg" />
+        </a>
+        <br />
+        This work is licensed under a
+        <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
+          Creative Commons Attribution-ShareAlike 4.0 International License
+        </a>
+      </section>
     </div>
   </body>
 </html>

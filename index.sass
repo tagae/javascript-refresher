@@ -1,14 +1,11 @@
 @import yin-yang
 
 $fa-font-path: '~font-awesome/fonts/'
-@import node_modules/font-awesome/scss/font-awesome
+@import ~font-awesome/scss/font-awesome
 
 .reveal
 
   background: radial-gradient(circle, #4d4d4d, #262626, #000)
-
-  h3
-    text-transform: capitalize
 
   img.zen
     border: none
@@ -18,11 +15,9 @@ $fa-font-path: '~font-awesome/fonts/'
   pre code
     max-height: initial // allow higher code snippets
 
-.cover
-  h1
-    font-size: 1.5em
-  h2
-    font-size: 1em
+.author
+  font-size: smaller
+  color: darken(white, 20%)
 
 .bi-column-box
   position: absolute
@@ -50,3 +45,7 @@ div.row
   display: flex
   justify-content: center
   align-items: center
+
+img[alt='Creative Commons License']
+  border-width: 0
+  width: 200px

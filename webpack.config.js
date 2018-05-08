@@ -1,7 +1,6 @@
 // https://webpack.js.org
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const UglifyJsPlugin = require('webpack/lib/optimize/UglifyJsPlugin')
 const { resolve, join } = require('path');
 
 module.exports = {
@@ -10,13 +9,6 @@ module.exports = {
     'webpack-dev-server/client?http://localhost:8080',
     './config.js'
   ],
-
-  output: {
-    path: join(process.cwd(), 'dist'),
-    filename: '[name].[hash].js'
-  },
-
-  devtool: 'inline-source-map',
 
   performance: {
     hints: false // muffle warning bundle size warning
@@ -36,8 +28,8 @@ module.exports = {
       },
       {
         test: /\.js$/,
-        use: 'babel-loader',
-        exclude: /node_modules/
+        exclude: /node_modules/,
+        use: 'babel-loader'
       },
       {
         test: /\.(css|scss|sass)$/,
@@ -50,7 +42,7 @@ module.exports = {
             }
           },
           'sass-loader'
-        ],
+        ]
       },
       {
         test: /\.html$/,
@@ -65,12 +57,11 @@ module.exports = {
           }
         }
       }
-    ],
+    ]
   },
 
   plugins: [
-    new HtmlWebpackPlugin({ template: 'index.html' }),
-    new UglifyJsPlugin({ })
+    new HtmlWebpackPlugin({ template: 'index.html' })
   ]
 
 };
